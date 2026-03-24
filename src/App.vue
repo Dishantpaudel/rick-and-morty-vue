@@ -1,36 +1,34 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
 // Reactive state to hold our data
-const characters = ref([])
-const loading = ref(true)
+const characters = ref([]);
+const loading = ref(true);
 
 // Function to fetch data from the API
 const fetchCharacters = async () => {
   try {
-    const response = await fetch('https://rickandmortyapi.com/api/character')
-    const data = await response.json()
-    characters.value = data.results
+    const response = await fetch("https://rickandmortyapi.com/api/character");
+    const data = await response.json();
+    characters.value = data.results;
   } catch (error) {
-    console.error("Error fetching Rick and Morty data:", error)
+    console.error("Error fetching Rick and Morty data:", error);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 // Run the fetch when the component "mounts" (loads)
 onMounted(() => {
-  fetchCharacters()
-})
+  fetchCharacters();
+});
 </script>
 
 <template>
   <main>
     <h1>Rick and Morty (Vue Version)</h1>
 
-    <div v-if="loading" class="loading">
-      Loading characters...
-    </div>
+    <div v-if="loading" class="loading">Loading characters...</div>
 
     <div v-else class="character-grid">
       <div v-for="char in characters" :key="char.id" class="card">

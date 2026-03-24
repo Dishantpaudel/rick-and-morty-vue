@@ -1,4 +1,4 @@
-name: CI for Vue App
+name: React CI Pipeline
 
 on:
   push:
@@ -7,13 +7,13 @@ on:
     branches: [ "main", "develop" ]
 
 jobs:
-  # This name MUST match the Status Check name in GitHub Settings
+  # CHANGE THIS LINE to match your Branch Protection search
   Lint-Format-and-Test:
     name: Lint, Format and Test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -25,11 +25,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Check Formatting (Prettier)
-        run: npx prettier --check "src/**/*.{js,vue,css}"
+      # NEW: This ensures your Code Police caught everything
+      - name: Check Formatting
+        run: npx prettier --check "src/**/*.{js,jsx,css}"
 
-      - name: Run Linter (ESLint)
+      - name: Run Linting
         run: npm run lint
 
-      - name: Run Unit Tests (Vitest)
+      - name: Run Tests
         run: npm run test

@@ -1,0 +1,35 @@
+name: CI for Vue App
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  # This name MUST match the Status Check name in GitHub Settings
+  Lint-Format-and-Test:
+    name: Lint, Format and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check Formatting (Prettier)
+        run: npx prettier --check "src/**/*.{js,vue,css}"
+
+      - name: Run Linter (ESLint)
+        run: npm run lint
+
+      - name: Run Unit Tests (Vitest)
+        run: npm run test

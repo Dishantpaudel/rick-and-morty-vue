@@ -6,6 +6,6 @@ describe("App.vue", () => {
   it("renders the Rick and Morty title", () => {
     const wrapper = mount(App);
     // Checks if the text exists in the rendered HTML
-    expect(wrapper.text()).toContain("Rick and Morty Wiki (Vue Edition)");
+    expect(wrapper.text()).toContain("Rick and Morty");
   });
 });

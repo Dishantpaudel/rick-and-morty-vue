@@ -4,8 +4,8 @@ defineProps({
   image: String,
   status: String,
   species: String,
-  origin: String
-})
+  origin: String,
+});
 </script>
 
 <template>

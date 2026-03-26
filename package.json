@@ -10,10 +10,12 @@
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
         "format": "prettier --write \"src/**/*.{js,vue,css}\"",
         "prepare": "husky",
-        "test": "vitest run"
-
+        "test": "vitest run",
+        "storybook": "storybook dev -p 6006",
+        "build-storybook": "storybook build"
     },
     "dependencies": {
+        "storybook": "^10.3.3",
         "vue": "^3.5.30"
     },
     "devDependencies": {
@@ -26,7 +28,17 @@
         "lint-staged": "^16.4.0",
         "prettier": "^3.8.1",
         "vite": "^8.0.1",
-        "vitest": "^4.1.0"
+        "vitest": "^4.1.0",
+        "@storybook/vue3-vite": "^10.3.3",
+        "@chromatic-com/storybook": "^5.1.1",
+        "@storybook/addon-vitest": "^10.3.3",
+        "@storybook/addon-a11y": "^10.3.3",
+        "@storybook/addon-docs": "^10.3.3",
+        "@storybook/addon-onboarding": "^10.3.3",
+        "eslint-plugin-storybook": "^10.3.3",
+        "playwright": "^1.58.2",
+        "@vitest/browser-playwright": "^4.1.0",
+        "@vitest/coverage-v8": "^4.1.0"
     },
     "lint-staged": {
         "src/**/*.{js,vue}": [
@@ -35,6 +47,11 @@
         ],
         "src/**/*.css": [
             "prettier --write"
+        ]
+    },
+    "eslintConfig": {
+        "extends": [
+            "plugin:storybook/recommended"
         ]
     }
 }

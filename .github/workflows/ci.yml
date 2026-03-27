@@ -24,12 +24,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # FIXED: Added .vue to the check so it doesn't miss your components
+      #  Added .vue to the check so it doesn't miss  components
       - name: Check Formatting
         run: npx prettier --check "src/**/*.{js,jsx,css,vue}"
 
       - name: Run Linting
         run: npm run lint
+
+      # FIXED: Install Playwright browsers so Vitest doesn't crash
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
 
       - name: Run Tests
         run: npm run test

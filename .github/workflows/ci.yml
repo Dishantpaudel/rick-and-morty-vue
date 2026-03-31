@@ -1,0 +1,39 @@
+name: Vue CI Pipeline
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  Lint-Format-and-Test:
+    name: Lint, Format and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      #  Added .vue to the check so it doesn't miss  components
+      - name: Check Formatting
+        run: npx prettier --check "src/**/*.{js,jsx,css,vue}"
+
+      - name: Run Linting
+        run: npm run lint
+
+      # FIXED: Install Playwright browsers so Vitest doesn't crash
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run Tests
+        run: npm run test

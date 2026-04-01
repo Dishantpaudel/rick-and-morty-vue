@@ -10,7 +10,15 @@ export default [{
 
     {
         name: 'app/files-to-ignore',
-        ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**', 'node_modules/**'],
+        ignores: [
+            '**/dist/**',
+            '**/dist-ssr/**',
+            '**/coverage/**',
+            '**/storybook-static/**',
+            '**/playwright-report/**',
+            '**/test-results/**',
+            'node_modules/**',
+        ],
     },
 
     js.configs.recommended,

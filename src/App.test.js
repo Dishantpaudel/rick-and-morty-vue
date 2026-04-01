@@ -1,51 +1,62 @@
-import { flushPromises, mount } from "@vue/test-utils";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import App from "./App.vue";
-import { fetchCharacterById, fetchCharacters } from "./services/rickAndMorty";
+import { mount } from "@vue/test-utils";
+import { describe, expect, it } from "vitest";
+import AppNavbar from "./components/AppNavbar.vue";
+import CharacterCard from "./components/CharacterCard.vue";
 
-vi.mock("./services/rickAndMorty", () => ({
-  fetchCharacters: vi.fn(),
-  fetchCharacterById: vi.fn(),
-}));
-
-describe("App.vue", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-    window.location.hash = "#/";
-
-    fetchCharacterById.mockResolvedValue({
-      id: 2,
-      name: "Morty Smith",
+describe("CharacterCard.vue", () => {
+  it("renders content and prioritized image attributes", () => {
+    const wrapper = mount(CharacterCard, {
+      props: {
+        id: 1,
+        name: "Rick Sanchez",
+        image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+        status: "Alive",
+        species: "Human",
+        origin: "Earth (C-137)",
+        priority: true,
+      },
     });
 
-    fetchCharacters.mockResolvedValue({
-      info: { count: 1, pages: 1, next: null, prev: null },
-      results: [
-        {
-          id: 2,
-          name: "Morty Smith",
-          image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-          status: "Alive",
-          species: "Human",
-          origin: { name: "Earth (C-137)" },
-        },
-      ],
-    });
+    expect(wrapper.get("a.character-link").attributes("href")).toBe(
+      "#/character/1",
+    );
+    expect(wrapper.text()).toContain("Rick Sanchez");
+    expect(wrapper.text()).toContain("Human");
+    expect(wrapper.get(".status-pill").classes()).toContain("status-alive");
+
+    const image = wrapper.get("img");
+    expect(image.attributes("width")).toBe("300");
+    expect(image.attributes("height")).toBe("300");
+    expect(image.attributes("loading")).toBe("eager");
+    expect(image.attributes("fetchpriority")).toBe("high");
   });
 
-  it("renders title and fetched character", async () => {
-    const wrapper = mount(App);
-    expect(wrapper.text()).toContain("Rick and Morty Character Explorer");
+  it("defaults to lazy image loading when not prioritized", () => {
+    const wrapper = mount(CharacterCard, {
+      props: {
+        id: 2,
+        name: "Morty Smith",
+        image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+      },
+    });
 
-    await flushPromises();
+    const image = wrapper.get("img");
+    expect(image.attributes("loading")).toBe("lazy");
+    expect(image.attributes("fetchpriority")).toBe("auto");
+  });
+});
 
-    expect(wrapper.text()).toContain("Morty Smith");
-    expect(fetchCharacters).toHaveBeenCalledWith(
-      expect.objectContaining({
-        page: 1,
-        name: "",
-        status: "",
-      }),
-    );
+describe("AppNavbar.vue", () => {
+  it("emits search updates on input", async () => {
+    const wrapper = mount(AppNavbar, {
+      props: {
+        modelValue: "",
+      },
+    });
+
+    await wrapper.get("#global-search").setValue("Morty");
+
+    expect(wrapper.emitted("update:modelValue")[0]).toEqual(["Morty"]);
+    expect(wrapper.get("a.brand").attributes("href")).toBe("#/");
   });
 });

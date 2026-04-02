@@ -2,7 +2,7 @@
   <h1>Rick and Morty Portal (Vue Edition)</h1>
   <p><strong>A polished character explorer built with Vue 3, Vite, and a production-style frontend workflow.</strong></p>
   <p>
-    <a href="https://rick-and-morty-vue-hs.vercel.app/">
+    <a href="https://rick-and-morty-vue-wheat.vercel.app/#/">
       <img src="https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel" alt="Live Demo" />
     </a>
     <img src="https://img.shields.io/badge/Vue-3.5-42b883?logo=vuedotjs&logoColor=white" alt="Vue 3" />
@@ -14,7 +14,7 @@
 </div>
 
 ## Live Preview
-- Production URL: https://rick-and-morty-vue-hs.vercel.app/
+- Production URL: https://rick-and-morty-vue-wheat.vercel.app/#/
 
 ![Rick and Morty Portal Vue screenshot](./docs/screenshots/app-preview.png)
 

@@ -1,51 +1,61 @@
-# 🛸 Rick and Morty Multiverse Portal (Vue Edition)
+# Rick and Morty Portal (Vue Edition)
 
-![App Preview](./docs/screenshots/app-preview.png)
+A custom single-page character explorer built with Vue 3 and Vite. This app fetches live data from the Rick and Morty API, supports search and status filtering, and includes route-level character details.
 
-*Live Demo: [https://rick-and-morty-vue-hs.vercel.app](https://rick-and-morty-vue-hs.vercel.app)*
+## Live Website
+https://rick-and-morty-vue-hs.vercel.app/
 
-## 🚀 Overview
-This is the **Vue 3** iteration of the Rick and Morty Multiverse Portal. Built to demonstrate framework versatility, this project replicates the React version's functionality using Vue's modern Composition API, Vite, and an enterprise-grade CI/CD pipeline.
+## Screenshot
+![Rick and Morty Portal Vue screenshot](./docs/screenshots/app-preview.png)
 
-## ✨ Key Features
-- **Vue 3 Composition API:** Utilizing modern Vue reactivity (`ref`, `computed`) for efficient and clean state management.
-- **Component-Driven UI:** Fully integrated with **Storybook** for isolated component development and documentation.
-- **Global Styling:** Custom Glassmorphism UI design system tailored for the multiverse.
-- **Real-Time Filtering:** Dynamic search logic to instantly filter characters by name.
-- **Enterprise Quality:** Configured with ESLint, Prettier, Husky, and lint-staged to enforce strict code standards before every commit.
-- **Automated Testing:** CI/CD pipeline integrated with Vitest and Playwright.
+## Core Features
+- API integration with `https://rickandmortyapi.com/api/character`
+- User interactions for searching, filtering, pagination, and navigating to character details
+- Matching UI and behavior with the React version of the same app
+- Component stories with Storybook
+- Component tests with Vitest
+- End-to-end user flow tests with Playwright
 
-## 🛠️ Tech Stack
-- **Framework:** Vue 3
-- **Build Tool:** Vite
-- **Testing:** Vitest & Playwright
-- **Documentation:** Storybook
-- **Code Quality:** ESLint, Prettier, Husky
-- **Deployment:** Vercel
+## Run Locally
+1. Install dependencies.
+2. Start the development server.
 
-## 📦 Getting Started
-
-### 1. Clone the repository
 ```bash
-git clone [https://github.com/Dishantpaudel/rick-and-morty-vue-hs.git](https://github.com/Dishantpaudel/rick-and-morty-vue-hs.git)
-cd rick-and-morty-vue-hs
-
-2. Install dependencies
-Bash
 npm install
-3. Available Scripts
-npm run dev - Starts the local Vite development server.
+npm run dev
+```
 
-npm run storybook - Opens the Storybook component library.
+The app runs at `http://localhost:5173` by default.
 
-npm run test - Runs the Vitest and Playwright test suites.
+## Available Scripts
 
-npm run lint - Runs ESLint to check for code issues.
+| Script | Purpose |
+| --- | --- |
+| `npm run dev` | Start the Vite development server. |
+| `npm run build` | Build production assets. |
+| `npm run preview` | Preview the production build locally. |
+| `npm run lint` | Run ESLint checks. |
+| `npm run format` | Format source files with Prettier. |
+| `npm run format:check` | Validate Prettier formatting without writing changes. |
+| `npm run test:unit` | Run component and unit tests with Vitest. |
+| `npm run test:e2e` | Run browser end-to-end tests with Playwright. |
+| `npm run storybook` | Start Storybook for component isolation. |
+| `npm run build-storybook` | Build static Storybook assets. |
 
-npm run build - Creates a production-ready build.
+## CI/CD
+GitHub Actions runs on each pull request to `main` and executes:
+- `format:check`
+- `lint`
+- `test:unit`
+- `test:e2e`
+- `build`
 
-Developed by Dipshant 
+If all checks pass, the workflow deploys a preview build to Vercel.
 
-*(Note: If your actual Vercel live link is slightly different than the one I guessed at the top, just swap that single URL out!)*
+Required repository secrets:
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
 
-Once you paste and save that, just let me know what terminal command you want to tackle next!
+## Author
+Dipshant Paudel
